@@ -1,6 +1,6 @@
 # System and Network Hardening
 
-Reducing the attack surface of the network and the systems on the network. Most of the time, addressing vulnerabilities one at a time is much less productive than straight up reducing the attack surface of the system/network. It is seriously effective at reducing vulnerabilities tenfold, while keeping your network and systems organized, documented, and accounted for.
+Reducing the attack surface of the network and the systems on the network. Most of the time, addressing vulnerabilities one at a time is much less productive than straight up reducing the attack surface of the system/network. It is seriously effective at reducing vulnerabilities , while keeping your network and systems organized, documented, and accounted for.
 
 ## This entire process was followed in accordance with the relevant [CIS Benchmarks](https://www.cisecurity.org/cis-benchmarks/)
 
@@ -12,7 +12,12 @@ A preliminary scan to check whether your network has already been compromised. Y
 
 Running either a [network scan]() or by simply logging into the router's internal webserver, we can see a list of hostnames, MAC addresses and IP addresses of devices on the network.
 ![](netdiscoverhelp.png)
+
+## Securing network devices
+
 ![](routerwebserver.png)
+
+### DoS/DDoS prevention
 
 First, change the administrator login to the portal(I _know_ you haven't changed it...)
 
@@ -50,7 +55,7 @@ Check for BIOS/UEFI firmware upgrades from the manufacturer(including mobile pho
 
 Do not forget to check for updates for applications with their own updating mechanism.
 
-      Ensure that security updates for all systems are enabled and preferably set to automatically check, fetch, and perform updates. Updates contain (often security)patches from the developers, which is why staying up-to-date is so important.
+**Ensure that security updates for all systems are enabled and preferably set to automatically check, fetch, and perform updates. Updates contain (often security)patches from the developers, which is why staying up-to-date is so important.**
 
 Yes, Microsoft Windows too.
 ![Your Windows Update is 93% complete!](the_great_reboot.jpeg "You VILL update Microsoft Windows and you VILL be happy.")
@@ -59,7 +64,7 @@ Yes, Microsoft Windows too.
 
 ### Setting up a File Server
 
-Since the file share is only intended to be used over the local network, plain FTP is being used, as opposed to FTP over TLS or SSH-FTP(SFTP)
+Since the file share is only intended to be used over the local network, plain FTP(from `inetutils`) is being used, as opposed to FTP over TLS or SSH-FTP(SFTP)
 
 Start the FTP server process with `ftpd [options]`. It uses TCP on the port you define. Along with **using a secure FTP implementation**(FTPS,SFTP), I highly recommend changing away from the **default ports** that your server uses. You'd also want to **disable anonymous and root login**.
 
@@ -171,13 +176,41 @@ Firewalls you can use are already [mentioned above](#firewalluncomplicated-firew
 
 Set up your filesystem with appropriate permissions
 
+Audit groups and users, and make sure service accounts do not have unnecessary privileges
+
 ## Removing unnecessary applications and services
+
+### Systemd
 
 `systemctl` is your Bible here. Systemd manpages are _THE_ FM to R. Disable unnecessary startup services, and disable .services in favour of .sockets. Learning some basic systemd administration is essential in managing linux boxes.
 
+![](systemctlusage.png)
+
+![](systemdusage2.png)
+
+![](systemctlusage3.png)
+
+### Removing unneeded applications
+
 Uninstall software that you rarely use, even if it doesn't start up automatically
 
-Uninstall software that litters trackers all over your system in favour of FOSS software. Remove VPN "apps", replace them with OpenVPN+configuration files. Remove WhatsApp, Telegram, etc. proprietary "apps" and replace them with the web session instead. Or even better, use FOSS alternatives.
+#### On Debian/Ubuntu systems,
+
+To show packages marked as manually(explicitly) installed. These packages are not autoremovable.
+
+`apt-mark showmanual | less`
+
+To set packages as auto or manual refer to the manual:
+
+`man apt-mark`
+
+To remove orphan packages:
+
+`sudo apt -y --purge autoremove`
+
+Uninstall software that litters trackers all over your system in favour of FOSS software.
+
+Remove VPN "apps", replace them with OpenVPN+configuration files. Remove proprietary "apps" like WhatsApp, Telegram and use the browser version. Or even better, use FOSS alternatives.
 
 Remove google chrome, install librewolf. Install uBlock Origin [Hard Mode, Do You Dare?](https://github.com/gorhill/uBlock/wiki/Blocking-mode:-hard-mode)
 
@@ -185,14 +218,33 @@ Start off with a user.js from [Arkenfox](https://github.com/arkenfox/user.js/) o
 
 ## Logging
 
-https://wiki.archlinux.org/title/Category:Monitoring
+Install `auditd` to log acces to files you specify.
 
-### https://wiki.archlinux.org/title/Category:Logging
+```
+auditd/jammy 1:3.0.7-1build1 amd64
+  User space tools for security auditing
+```
 
-Set up syslog-ng or rsyslog.
+### Syslog
+
+If deemed necessary, set up syslog-ng or rsyslog. Most users do not need this as [Journalctl](#systemd-journald)
+
+```
+rsyslog/jammy-security,jammy-updates,now 8.2112.0-2ubuntu2.2 amd64 [installed]
+  reliable system and kernel logging daemon
+```
+
+### Systemd-journald
+
 Also, learn basic systemd/journald usage, and cleaning-rotating operations. Experiment with viewing logs for different boots, looking at boot messages, application logs, logs for specific units
 
-It is easy to script graphical popups/alerts on an event.
+![](journalctl.png)
+
+![](journalctl2.png)
+
+![](journalctl3.png)
+
+It is easy to script graphical popups/alerts on an event too.
 
 > There is no point collecting logs if you're never going to read them
 
@@ -247,8 +299,6 @@ Use full disk encryption if you have valuable or sensitive information. Any devi
 Ensure any mobile payment apps have an "app-lock" on them at the very least. Enable `remote wipe`, and `FindMyPhone` features if available.
 
 Make sure your network and electrical wiring is not exposed outside the house, [juicy target for rodents and neighbourhood kids](https://slate.com/technology/2014/08/shark-attacks-threaten-google-s-undersea-internet-cables-video.html), and of course, the elements.
-
-## DoS/DDoS prevention
 
 ## TOR setup
 
