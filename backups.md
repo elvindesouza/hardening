@@ -36,7 +36,7 @@ Enable `fsck` at boot time, it automatically repairs damaged portions of many fi
 
 ## Syncthing
 
-discussed in the [Encryption](./encryption.md) guide [here](https://github.com/elvindsouza/hardening/blob/master/encryption.md#password-sensitive-information-management-), Syncthing makes syncing folders across machines very easy. It is also cross-platform.
+discussed in the [Encryption](./encryption.md) guide [here](https://elvindsouza.github.io/hardening/encryption.html#password-sensitive-information-management-), Syncthing makes syncing folders across machines very easy. It is also cross-platform.
 
 You can even sync entire partitions and disks between machines, but you will have difficulty syncing files that belong to other users(so not very usable to sync home and root directories)
 

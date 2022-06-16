@@ -10,7 +10,7 @@ Reducing the attack surface of the network and the systems on the network. Most 
 
 A preliminary scan to check whether your network has already been compromised. You can do that by...
 
-Running either a [network scan](https://github.com/elvindsouza/NetworkPenetrationTesting#port-scanning-and-network-discovery) or by simply logging into the router's internal webserver, we can see a list of hostnames, MAC addresses and IP addresses of devices on the network.
+Running either a [network scan](https://elvindsouza.github.io/NetworkPenetrationTesting#port-scanning-and-network-discovery) or by simply logging into the router's internal webserver, we can see a list of hostnames, MAC addresses and IP addresses of devices on the network.
 ![](netdiscoverhelp.png)
 
 ## Securing network devices
