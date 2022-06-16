@@ -74,6 +74,18 @@ Edit the `/etc/ftpusers` file to your liking, and your FTP server should be set 
 
 First, install the appropriate package that provides an SSH server like `openssh`
 
+First, generate keys with
+
+`ssh-keygen -t ed25519` (this algorithm in particular because +performance)
+
+Then copy over your public key to the designated "remote" machine
+
+`ssh-copy-id -i .ssh/id_ed25519.pub username@192.168.0.2`
+
+Public Key Authentication is now set up! Try it by connecting to the machine with
+
+`ssh username@address`
+
 If you aim for remote administration, **change your default port**! Also, install an intrusion prevention service like `Fail2ban`.
 
 #### Fail2Ban Installation and setup
@@ -92,13 +104,12 @@ Open up the required ports with your firewall(here, ufw)
 
 `sudo ufw allow ssh` (RTFM)
 
-### keygen,agent,passwordless authentication
-
-Generate a 4096bit RSA key with
-
-`ssh-keygen -b 4096`
+### Passwordless authentication, SSHd configuration
 
 Explicitly set `PasswordAuthentication no` in the SSH server configuration to allow only Public Key Authentication.
+
+Review the available options(X11 forwarding, TCP forwarding, etc.) in the configuration file
+
 Enable the corresponding sshd service unit file to automatically start the daemon upon startup.
 
 Edit the configuration file at `/etc/ssh/sshd_config` to change port number, SFTP settings, etc.
@@ -211,6 +222,7 @@ To remove orphan packages:
 Uninstall software that litters trackers all over your system in favour of FOSS software.
 
 Remove VPN "apps", replace them with OpenVPN+configuration files. Remove proprietary "apps" like WhatsApp, Telegram and use the browser version. Or even better, use FOSS alternatives.
+![](openvpn_configs.png)
 
 Remove google chrome, install librewolf. Install uBlock Origin [Hard Mode, Do You Dare?](https://github.com/gorhill/uBlock/wiki/Blocking-mode:-hard-mode)
 
