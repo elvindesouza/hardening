@@ -10,7 +10,7 @@ Reducing the attack surface of the network and the systems on the network. Most 
 
 A preliminary scan to check whether your network has already been compromised. You can do that by...
 
-Running either a [network scan]() or by simply logging into the router's internal webserver, we can see a list of hostnames, MAC addresses and IP addresses of devices on the network.
+Running either a [network scan](https://github.com/elvindsouza/NetworkPenetrationTesting#port-scanning-and-network-discovery) or by simply logging into the router's internal webserver, we can see a list of hostnames, MAC addresses and IP addresses of devices on the network.
 ![](netdiscoverhelp.png)
 
 ## Securing network devices
@@ -42,20 +42,20 @@ Explicitly assign IP addresses to all known devices(by MAC), one by one. Do this
 
 2. Enable MAC filtering, and add the same MAC addresse. These reserved addresses ensure that you can run services over the local network without any confusion because of a sudden change in IP address allocation
 
-Create a network topology map documenting the routers
+Create a network topology map documenting the routers, extenders and devices, and their corresponding MAC and reserved IP addresses
 
-From now on, you may assume all devices on the local network are trusted by default. If in doubt, remember your schema and check the enumerated network for an IP address that does not match your pattern.
+From now on, you may assume all devices on the local network are trusted by default. If in doubt, remember your schema and check the list of hosts on the network for IP addresses that do not match your pattern.
 
 ## Updates
 
 Make sure you are running the latest supported version of the operating system, and that all applications/packages are up-to-date.
 ![](updating.png)
 
-Check for BIOS/UEFI firmware upgrades from the manufacturer(including mobile phones)
+Check for BIOS/UEFI firmware updates from the manufacturer(including mobile phones)
 
 Do not forget to check for updates for applications with their own updating mechanism.
 
-**Ensure that security updates for all systems are enabled and preferably set to automatically check, fetch, and perform updates. Updates contain (often security)patches from the developers, which is why staying up-to-date is so important.**
+**Ensure that security updates for all systems are enabled and preferably set to automatically check, fetch, and perform updates. Even regular updates contain (often security)patches from the developers, which is why staying up-to-date is so important.**
 
 Yes, Microsoft Windows too.
 ![Your Windows Update is 93% complete!](the_great_reboot.jpeg "You VILL update Microsoft Windows and you VILL be happy.")
@@ -102,7 +102,7 @@ Setting up Fail2Ban to watch for multiple SSH login attempts(failures)- make a c
 
 Open up the required ports with your firewall(here, ufw)
 
-`sudo ufw allow ssh` (RTFM)
+`sudo ufw allow ssh` ([RTFM](http://manpages.ubuntu.com/manpages/kinetic/man8/ufw.8.html))
 
 ### Passwordless authentication, SSHd configuration
 
@@ -114,7 +114,7 @@ Enable the corresponding sshd service unit file to automatically start the daemo
 
 Edit the configuration file at `/etc/ssh/sshd_config` to change port number, SFTP settings, etc.
 
-<sub>Expose your services to the internet only after detective, preventive, and deterrent measures are put in place by setting up port-forwarding on your router.</sub>
+**Expose your services to the internet only after detective, preventive, and deterrent measures are put in place by setting up port-forwarding on your router.**
 
 ###### _future_:VNC
 
@@ -128,13 +128,13 @@ Upon setting up these services intended to be used on the local network only, re
 2. server(here, the system running these SSH/FTP/VNC etc. daemons)
 3. client(Microsoft Windows or Linux desktop PCs and laptop devices)
 
-An additional step would be installing your preferred router firmware like `OpenWRT`.
+An additional step would be installing your preferred router Operating System like `OpenWRT`.
 
 For server or server-like systems running Unix-like OSes, `iptables`, `nftables`, or `ufw` are the first things you should look to. You should also install other IDS/IPS services that specializes in securing each target(be it your FTP,SSH,VNC,git,NFS server)
 
 ### Uncomplicated Firewall(for the GNU/Linux server and client)
 
-from the ubuntu wiki-
+Why UFW? The reasoning comes straight from the ubuntu wiki-
 
 > The Linux kernel in Ubuntu provides a packet filtering system called netfilter, and the traditional interface for manipulating netfilter are the iptables suite of commands.
 
@@ -148,7 +148,7 @@ If UFW does not come pre-installed on your system, install it using your package
 
 ![](archlinuxufwinstall.png "Installing UFW on Arch Linux")
 
-Initial set-up should always go after these two rules are created (deny-by-default principle)
+Initial set-up should always go after these two rules are created ([deny-by-default principle](https://csrc.nist.gov/glossary/term/deny_by_default))
 
 ```
 ufw default deny
@@ -161,7 +161,9 @@ Purge ridiculous "web search" apps from your system. These are likely adware+spy
 
 ### For client systems-
 
-**Android**-Not typically the target of web-based attacks, so less security is acceptable. However, use native android "permissions" to make each app abide by the [least privilege principle](https://www.cisa.gov/uscert/bsi/articles/knowledge/principles/least-privilege#:~:text=The%20Principle%20of%20Least%20Privilege%20states%20that%20a%20subject%20should,control%20the%20assignment%20of%20rights.) ...also talked about [here](#least-privilege).
+#### Android
+
+Not typically the target of web-based attacks, so less security is acceptable. However, use native android "permissions" to make each app abide by the [least privilege principle](https://www.cisa.gov/uscert/bsi/articles/knowledge/principles/least-privilege#:~:text=The%20Principle%20of%20Least%20Privilege%20states%20that%20a%20subject%20should,control%20the%20assignment%20of%20rights.) ...also talked about [here](#least-privilege).
 
 You can also use native android functionality to deny installation of apk from storefronts/marktplaces not in a whitelist.
 
@@ -169,11 +171,15 @@ Some android spins allow you to deny network access to apps. This is as good as 
 
 Firewalls are available which masquerade as a "VPN" to the OS, but these drain battery life, and are nowhere as efficient as uninstalling the app or just restricting permissions.
 
-**Microsoft Windows**-Use a ""trusted""(""reputable"") antivirus solution, these typically have anti-malware, PUA, IDS/IPS, anti-keylogger, safe banking, botnet detection and firewall services built-in with reasonable defaults. Ensure protections are in place for unsafe hyperlinks and email attachments
+#### Microsoft Windows
+
+Use a ""trusted""(""reputable"") antivirus solution, these typically have anti-malware, PUA, IDS/IPS, anti-keylogger, safe banking, botnet detection and firewall services built-in with reasonable defaults. Ensure protections are in place for unsafe hyperlinks and email attachments
 
 For simpler setups(favouring advanced users), use the Firewall and Microsoft Defender that comes along with the OS.
 
-**Linux**-Nowhere as prevalent as Windows, but you might have to be more careful with linux systems, as attacks crafted for linux machines are usually untargeted in nature and intended for small to large servers, not home PCs. Most commonly-botnets and worms
+#### Linux
+
+Nowhere as prevalent as Windows, but you might have to be more careful with linux systems, as attacks crafted for linux machines are usually untargeted in nature and intended for small to large servers, not home PCs. Most commonly-botnets and worms
 
 Firewalls you can use are already [mentioned above](#firewalluncomplicated-firewall), you can combine this with periodic scans with [`ClamAV`](https://wiki.archlinux.org/title/ClamAV) (antivirus for linux), along with keeping your system up to date.
 
@@ -258,23 +264,21 @@ Also, learn basic systemd/journald usage, and cleaning-rotating operations. Expe
 
 It is easy to script graphical popups/alerts on an event too.
 
-> There is no point collecting logs if you're never going to read them
+> **There is no point collecting logs if you're never going to read them**
 
 ## Encryption
 
-discussed in further detail [Here](encryption.md)
+_discussed in further detail [Here](encryption.md)_
 
 ## Physical Security
 
 Use full disk encryption if you have valuable or sensitive information. Any devices taken out of the house must be visited individually and checked to see if any banking information, credit card numbers, etc. are unsecured.
 
-> Remember, your stolen 10k phone can have enough photographs of you, your signature, and your banking habits/information to successfully impersonate you.
+> Remember, your stolen 10k phone can have enough information from photographs of you, your signature, and your banking habits/information to successfully impersonate you.
 
 Ensure any mobile payment apps have an "app-lock" on them at the very least. Enable `remote wipe`, and `FindMyPhone` features if available.
 
 Make sure your network and electrical wiring is not exposed outside the house, [juicy target for rodents and neighbourhood kids](https://slate.com/technology/2014/08/shark-attacks-threaten-google-s-undersea-internet-cables-video.html), and of course, the elements.
-
-## TOR setup
 
 ---
 

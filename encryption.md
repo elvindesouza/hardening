@@ -8,21 +8,9 @@ Hardware-based full-disk encryption on self-encrypting drives(SED)
 
 Data is always encrypted with the data encryption key when stored to disk, even if there is no password set
 
-data in use
-data in motion (HTTPS only)
-full system encryption
-DNSSEC
-gpg with commands
-VNC x11vnc, tigervnc
-OCSP
-snort IPS
-doker/flatpak/snap/appimage
-VPN
-NTPsec
-
 ### Partition Encryption-
 
-Use LUKS(LVM additionally). Very easy to use, decrypting to non-technical users can just seem like "logging in to the computer"
+Use dm-crypt+LUKS. Very easy to use, decrypting to non-technical users can just seem like "logging in to the computer"
 
 ### File Encryption-
 
@@ -31,6 +19,14 @@ Use LUKS(LVM additionally). Very easy to use, decrypting to non-technical users 
 Create a key with
 
 `gpg --gen-key`
+
+Encrypting a file to yourself (using a keypair)
+
+`$ gpg -e -r youremail@here.com yourfilehere`
+
+Decrypting a file to yourself (using a keypair)
+
+`$ gpg --output yourfilehere -d yourfilehere.gpg`
 
 ##### [interesting read for another day](https://www.philzimmermann.com/EN/essays/WhyIWrotePGP.html)
 
@@ -45,3 +41,10 @@ Ideal for encrypting archives of documents and downloaded files.
 ![](syncthing.png)
 
 > Consider the very real possibility of concurrent access corruption
+
+<!-- FUTURE
+data in use
+data in motion (setting HTTPS-only)
+DNSSEC OCSP
+VPN
+NTPsec -->
