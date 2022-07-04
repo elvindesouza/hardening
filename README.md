@@ -1,3 +1,6 @@
+* TOC
+{:toc}
+
 # System and Network Hardening
 
 Reducing the attack surface of the network and the systems on the network. Most of the time, addressing vulnerabilities one at a time is much less productive than straight up reducing the attack surface of the system/network. It is seriously effective at reducing vulnerabilities , while keeping your network and systems organized, documented, and accounted for.

@@ -1,2 +1,2 @@
-# theme: jekyll-theme-leap-day
-remote_theme: mmistakes/minimal-mistakes
+markdown: kramdown
+theme: jekyll-theme-hacker
