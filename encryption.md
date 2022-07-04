@@ -1,3 +1,6 @@
+* TOC
+{:toc}
+
 # Encryption
 
 > In cryptography, encryption is the process of encoding information. This process converts the original representation of the information, known as plaintext, into an alternative form known as ciphertext.

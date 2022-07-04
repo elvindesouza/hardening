@@ -1,15 +1,15 @@
-* TOC
-{:toc}
+- TOC
+  {:toc}
 
 # System and Network Hardening
 
 Reducing the attack surface of the network and the systems on the network. Most of the time, addressing vulnerabilities one at a time is much less productive than straight up reducing the attack surface of the system/network. It is seriously effective at reducing vulnerabilities , while keeping your network and systems organized, documented, and accounted for.
 
-## This entire process was followed in accordance with the relevant [CIS Benchmarks](https://www.cisecurity.org/cis-benchmarks/)
+**This entire process was followed in accordance with the relevant [CIS Benchmarks](https://www.cisecurity.org/cis-benchmarks/)**
 
 ---
 
-## Enumerating Devices on the local network-
+## Enumerating Devices on the local network
 
 A preliminary scan to check whether your network has already been compromised. You can do that by...
 
@@ -19,8 +19,6 @@ Running either a [network scan](https://elvindsouza.github.io/NetworkPenetration
 ## Securing network devices
 
 ![](routerwebserver.png)
-
-### DoS/DDoS prevention
 
 First, change the administrator login to the portal(I _know_ you haven't changed it...)
 
@@ -37,6 +35,8 @@ If WLAN is enabled, **ensure** you're using at least WPA2 or WPA3 (personal mode
 **Disable guest networks**
 
 Set up your DHCP server if deemed necessary, and if you want to be extra cautious, meddle with the power settings and even experiment with different WiFi bands if you experience interference(textbook Denial of Service) because of microwaves or other devices operating.
+
+Enable DoS/DDoS prevention
 
 Explicitly assign IP addresses to all known devices(by MAC), one by one. Do this in two steps-
 
@@ -65,7 +65,7 @@ Yes, Microsoft Windows too.
 
 ## Setting up Needed Services
 
-### Setting up a File Server
+### FTP Daemon
 
 Since the file share is only intended to be used over the local network, plain FTP(from `inetutils`) is being used, as opposed to FTP over TLS or SSH-FTP(SFTP)
 
@@ -73,7 +73,7 @@ Start the FTP server process with `ftpd [options]`. It uses TCP on the port you 
 
 Edit the `/etc/ftpusers` file to your liking, and your FTP server should be set up. Connect to this server with an appropriate client, or use functionality from file managers like _Thunar_, _Dolphin_, _Nautilus_, etc. to add the FTP share as a "folder" in sidebar.
 
-### Setting up remote(local) administration/SSH
+### SSH-for remote(local) administration
 
 First, install the appropriate package that provides an SSH server like `openssh`
 
@@ -91,7 +91,7 @@ Public Key Authentication is now set up! Try it by connecting to the machine wit
 
 If you aim for remote administration, **change your default port**! Also, install an intrusion prevention service like `Fail2ban`.
 
-#### Fail2Ban Installation and setup
+#### Fail2Ban-installation and setup
 
 _from their website-_
 
@@ -119,7 +119,7 @@ Edit the configuration file at `/etc/ssh/sshd_config` to change port number, SFT
 
 **Expose your services to the internet only after detective, preventive, and deterrent measures are put in place by setting up port-forwarding on your router.**
 
-###### _future_:VNC
+<!-- ###### _future_:VNC -->
 
 ## Firewall
 
@@ -227,7 +227,7 @@ From an organization's perspective, least privilege may be defined as "the bare 
 
 Uninstall software that you rarely use, even if it doesn't start up automatically
 
-#### On Debian-based systems,
+#### Debian-based systems
 
 To show packages marked as manually(explicitly) installed. These packages are not autoremovable.
 
@@ -284,9 +284,7 @@ It is easy to script graphical popups/alerts on an event too.
 
 > **There is no point collecting logs if you're never going to read them**
 
-## Encryption
-
-_discussed in further detail [Here](encryption.md)_
+## [Encryption](encryption.md)
 
 ## Physical Security
 

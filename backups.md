@@ -1,3 +1,6 @@
+* TOC
+{:toc}
+
 # System Snapshots
 
 ## [Timeshift](https://teejeetech.com/timeshift/)
