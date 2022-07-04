@@ -185,15 +185,28 @@ Firewalls you can use are already [mentioned above](#firewalluncomplicated-firew
 
 ## Least Privilege
 
-**Disable the root account** on every system you can get your hands on. Instilling minimal permissions on regular user accounts can lessen the scope of an attack from threats outside your home network.
+**Disable the root account, or, at least, disable root login** on every system you administer
+
+This will allow you log attempted root logins and any access
+
+Instilling minimal permissions on regular user accounts can lessen the scope of an attack from threats outside your home network.
 
 > Make sure `sudo` is set up before disabling the root account!
 
 > Make sure you edit the `sudo` configuration with `$ visudo`!
 
-Set up your filesystem with appropriate permissions
+If SSH is open on the server, the configuration should be set up to disallow password login and disallow the root user from logging in via SSH
 
-Audit groups and users, and make sure service accounts do not have unnecessary privileges
+It is also important to avoid logging into and administering the system as the root user whenever possible and adequately managing access control
+Users' access should be determined based on the principle of least privilege
+
+If a user needs to run a command as root, then that command should be specified in the sudoers configuration instead of giving them full sudo rights.
+
+Set up your filesystem with only the minimum permissions the user who owns the folder or uses it the most needs
+
+Audit groups and users at intervals, and make sure service accounts do not have unnecessary privileges
+
+From an organization's perspective, least privilege may be defined as "the bare minimum permissions deemed necessary for an employee to do his/her job"
 
 ## Removing unnecessary applications and services
 
@@ -211,7 +224,7 @@ Audit groups and users, and make sure service accounts do not have unnecessary p
 
 Uninstall software that you rarely use, even if it doesn't start up automatically
 
-#### On Debian/Ubuntu systems,
+#### On Debian-based systems,
 
 To show packages marked as manually(explicitly) installed. These packages are not autoremovable.
 
@@ -233,6 +246,8 @@ Remove VPN "apps", replace them with OpenVPN+configuration files. Remove proprie
 Remove google chrome, install librewolf. Install uBlock Origin [Hard Mode, Do You Dare?](https://github.com/gorhill/uBlock/wiki/Blocking-mode:-hard-mode)
 
 Start off with a user.js from [Arkenfox](https://github.com/arkenfox/user.js/) or [this one if you like to live dangerously](https://github.com/pyllyukko/user.js/)
+
+familiarize yourself with the package manager of your distribution
 
 ## Logging
 
