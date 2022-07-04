@@ -1,5 +1,5 @@
-- TOC
-  {:toc}
+* TOC
+{:toc}
 
 # System and Network Hardening
 
