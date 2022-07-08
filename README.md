@@ -73,7 +73,7 @@ Start the FTP server process with `ftpd [options]`. It uses TCP on the port you 
 
 Edit the `/etc/ftpusers` file to your liking, and your FTP server should be set up. Connect to this server with an appropriate client, or use functionality from file managers like _Thunar_, _Dolphin_, _Nautilus_, etc. to add the FTP share as a "folder" in sidebar.
 
-### SSH-for remote(local) administration
+### SSH-for remote administration
 
 First, install the appropriate package that provides an SSH server like `openssh`
 
@@ -81,15 +81,12 @@ First, generate keys with
 
 `ssh-keygen -t ed25519` (this algorithm in particular because +performance)
 
-Then copy over your public key to the designated "remote" machine
+to simply login with SSH on a server
+`ssh username@host`
 
-`ssh-copy-id -i .ssh/id_ed25519.pub username@192.168.0.2`
+**Important!**
 
-Public Key Authentication is now set up! Try it by connecting to the machine with
-
-`ssh username@address`
-
-If you aim for remote administration, **change your default port**! Also, install an intrusion prevention service like `Fail2ban`.
+ (Further) setup of the SSH server and client with a security point of view is covered [here](elvindsouza.github.io/security/ssh)
 
 #### Fail2Ban-installation and setup
 
