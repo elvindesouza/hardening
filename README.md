@@ -13,7 +13,7 @@ Reducing the attack surface of the network and the systems on the network. Most 
 
 A preliminary scan to check whether your network has already been compromised. You can do that by...
 
-Running either a [network scan](https://elvindsouza.github.io/NetworkPenetrationTesting#port-scanning-and-network-discovery) or by simply logging into the router's internal webserver, we can see a list of hostnames, MAC addresses and IP addresses of devices on the network.
+Running either a [network scan](https://elvindesouza.github.io/NetworkPenetrationTesting#port-scanning-and-network-discovery) or by simply logging into the router's internal webserver, we can see a list of hostnames, MAC addresses and IP addresses of devices on the network.
 ![](netdiscoverhelp.png)
 
 ## Securing network devices
@@ -86,7 +86,7 @@ to simply login with SSH on a server
 
 **Important!**
 
- (Further) setup of the SSH server and client with a security point of view is covered [here](elvindsouza.github.io/security/ssh)
+ (Further) setup of the SSH server and client with a security point of view is covered [here](elvindesouza.github.io/security/ssh)
 
 #### Fail2Ban-installation and setup
 

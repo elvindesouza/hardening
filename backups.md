@@ -7,6 +7,7 @@
 
 The developer's [Website](https://teejeetech.com/timeshift/) explains it all.
 You can set it up to take periodic snapshots of your root, and home folder(optionally), and this will run automatically in the background, with no interruption.
+
 ![](timeshift.png)
 
 ## [Back in Time](https://backintime.readthedocs.io/en/latest/)
@@ -39,7 +40,7 @@ Enable `fsck` at boot time, it automatically repairs damaged portions of many fi
 
 ## Syncthing
 
-discussed in the [Encryption](./encryption.md) guide [here](https://elvindsouza.github.io/hardening/encryption.html#password-sensitive-information-management-), Syncthing makes syncing folders across machines very easy. It is also cross-platform.
+discussed in the [Encryption](./encryption.md) guide [here](https://elvindesouza.github.io/hardening/encryption.html#password-sensitive-information-management-), Syncthing makes syncing folders across machines very easy. It is also cross-platform.
 
 You can even sync entire partitions and disks between machines, but you will have difficulty syncing files that belong to other users(so not very usable to sync home and root directories)
 
@@ -53,4 +54,6 @@ from the website,
 
 ## Git
 
-You can use git to keep configuration files backed up on a service like GitHub o Gitlab. Learning basic git usage is necessary.
+You can use git to keep configuration files backed up on a service like GitHub or Gitlab. Learning basic git usage is necessary.
+
+Refer to [the repository I use to manage my dotfiles across machines](https://github.com/elvindesouza/dotfiles)
